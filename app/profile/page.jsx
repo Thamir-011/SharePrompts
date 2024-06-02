@@ -4,13 +4,16 @@ import Profile from "@components/Profile";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Suspense } from 'react'
+
 
 function MyProfile() {
     const router = useRouter();
     const { data: session } = useSession();
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState([])
-    const userId = useSearchParams().get("id")
+    const searchParams = useSearchParams()
+    const userId = searchParams.get("id")
 
     useEffect(() => {
         // fetch user
@@ -56,13 +59,15 @@ function MyProfile() {
     }
 
   return (
-    <Profile
-        name={user.username}
-        desc={"Welcome to your personalized profile page"}
-        data={posts}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-    />
+    <Suspense>
+        <Profile
+            name={user.username}
+            desc={"Welcome to your personalized profile page"}
+            data={posts}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+        />
+    </Suspense>
   )
 }
 
