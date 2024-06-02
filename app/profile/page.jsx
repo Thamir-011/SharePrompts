@@ -4,7 +4,6 @@ import Profile from "@components/Profile";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Suspense } from 'react'
 
 
 function MyProfile() {
@@ -59,15 +58,13 @@ function MyProfile() {
     }
 
   return (
-    <Suspense>
-        <Profile
-            name={user.username}
-            desc={"Welcome to your personalized profile page"}
-            data={posts}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-        />
-    </Suspense>
+    <Profile
+        name={user.username}
+        desc={"Welcome to your personalized profile page"}
+        data={posts}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+    />
   )
 }
 
